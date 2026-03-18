@@ -132,7 +132,7 @@ const AdminManagerDashboard = ({ role }) => {
                         </Box>
                     </Grid>
                 )}
-                <Grid item xs={12} md={role === 'admin' ? 4 : 6}>
+                <Grid item xs={12} md={role === 'admin' ? 3 : 6}>
                     <Box sx={{ p: 3, height: 300, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 3 }}>
                         <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2, color: 'white' }}>Fault Distribution</Typography>
                         {pieData.length > 0 ? (
@@ -152,7 +152,7 @@ const AdminManagerDashboard = ({ role }) => {
                         )}
                     </Box>
                 </Grid>
-                <Grid item xs={12} md={role === 'admin' ? 4 : 6}>
+                <Grid item xs={12} md={role === 'admin' ? 5 : 6}>
                     <Box sx={{ p: 0, height: 300, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 3, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                         {/* Header */}
                         <Box sx={{ px: 2.5, py: 1.75, borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>

@@ -99,7 +99,7 @@ const Assets = () => {
             {/* Asset Cards */}
             <Grid container spacing={3}>
                 {assets.map((asset, idx) => (
-                    <Grid item xs={12} sm={6} lg={4} key={asset.asset_id}>
+                    <Grid item xs={12} sm={6} md={3} key={asset.asset_id}>
                         <Card className="glass-panel" sx={{
                             height: '100%', display: 'flex', flexDirection: 'column',
                             borderRadius: 3, transition: 'all 0.25s ease',
