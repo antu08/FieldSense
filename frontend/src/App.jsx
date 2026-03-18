@@ -8,6 +8,11 @@ import Dashboard from './pages/Dashboard';
 import Assets from './pages/Assets';
 import Issues from './pages/Issues';
 import Technicians from './pages/Technicians';
+import Employees from './pages/Employees';
+import Live from './pages/Live';
+import TechHistory from './pages/TechHistory';
+import TechNotes from './pages/TechNotes';
+import AssignTech from './pages/AssignTech';
 
 // Protected Route Wrapper
 const ProtectedRoute = ({ children }) => {
@@ -39,7 +44,12 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/assets" element={<ProtectedRoute><Assets /></ProtectedRoute>} />
           <Route path="/issues" element={<ProtectedRoute><Issues /></ProtectedRoute>} />
+          <Route path="/live" element={<ProtectedRoute><Live /></ProtectedRoute>} />
+          <Route path="/history" element={<ProtectedRoute><TechHistory /></ProtectedRoute>} />
+          <Route path="/tech-notes" element={<ProtectedRoute><TechNotes /></ProtectedRoute>} />
+          <Route path="/assign-tech" element={<ProtectedRoute><AssignTech /></ProtectedRoute>} />
           <Route path="/technicians" element={<ProtectedRoute><Technicians /></ProtectedRoute>} />
+          <Route path="/employees" element={<ProtectedRoute><Employees /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>
     </Router>
