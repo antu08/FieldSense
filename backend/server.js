@@ -14,6 +14,8 @@ const issueRoutes = require('./routes/issues');
 const technicianRoutes = require('./routes/technicians');
 const sensorRoutes = require('./routes/sensors');
 const dashboardRoutes = require('./routes/dashboard');
+const employeesRoutes = require('./routes/employees');
+const notesRoutes = require('./routes/notes');
 
 // Use Routes
 app.use('/api/v1/auth', authRoutes);
@@ -22,6 +24,9 @@ app.use('/api/v1/issues', issueRoutes);
 app.use('/api/v1/technicians', technicianRoutes);
 app.use('/api/v1/sensors', sensorRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
+app.use('/api/v1/employees', employeesRoutes);
+app.use('/api/v1/notes', notesRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 

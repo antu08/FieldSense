@@ -25,7 +25,7 @@ exports.getAssetById = async (req, res) => {
 
 exports.createAsset = async (req, res) => {
     try {
-        const { asset_id, asset_type, location, installation_date, status } = req.body;
+        const { asset_id, product_name, company_name, location, min_temp_celsius, max_temp_celsius, expiry_date, status } = req.body;
         
         const [existing] = await db.query('SELECT * FROM assets WHERE asset_id = ?', [asset_id]);
         if (existing.length > 0) {
@@ -33,8 +33,8 @@ exports.createAsset = async (req, res) => {
         }
 
         await db.query(
-            'INSERT INTO assets (asset_id, asset_type, location, installation_date, status) VALUES (?, ?, ?, ?, ?)',
-            [asset_id, asset_type, location, installation_date, status || 'active']
+            'INSERT INTO assets (asset_id, product_name, company_name, location, min_temp_celsius, max_temp_celsius, expiry_date, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [asset_id, product_name, company_name, location, min_temp_celsius, max_temp_celsius, expiry_date, status || 'active']
         );
         res.status(201).json({ message: 'Asset created successfully', asset_id });
     } catch (err) {
@@ -45,10 +45,10 @@ exports.createAsset = async (req, res) => {
 
 exports.updateAsset = async (req, res) => {
     try {
-        const { asset_type, location, status } = req.body;
+        const { product_name, company_name, location, min_temp_celsius, max_temp_celsius, expiry_date, status } = req.body;
         const [result] = await db.query(
-            'UPDATE assets SET asset_type = ?, location = ?, status = ? WHERE asset_id = ?',
-            [asset_type, location, status, req.params.id]
+            'UPDATE assets SET product_name = ?, company_name = ?, location = ?, min_temp_celsius = ?, max_temp_celsius = ?, expiry_date = ?, status = ? WHERE asset_id = ?',
+            [product_name, company_name, location, min_temp_celsius, max_temp_celsius, expiry_date, status, req.params.id]
         );
 
         if (result.affectedRows === 0) {

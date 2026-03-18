@@ -6,5 +6,6 @@ const { authMiddleware } = require('../middleware/auth');
 router.use(authMiddleware);
 
 router.get('/summary', dashboardController.getSummary);
+router.get('/technician', dashboardController.getTechnicianSummary);
 
 module.exports = router;

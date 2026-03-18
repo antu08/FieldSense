@@ -3,7 +3,7 @@ const db = require('../config/db');
 exports.getAllIssues = async (req, res) => {
     try {
         let query = `
-            SELECT i.*, a.asset_type, t.name as technician_name 
+            SELECT i.*, a.product_name, a.company_name, a.location, t.name as technician_name 
             FROM issues i 
             LEFT JOIN assets a ON i.asset_id = a.asset_id 
             LEFT JOIN technicians t ON i.assigned_technician = t.tech_id 
@@ -35,8 +35,8 @@ exports.createIssue = async (req, res) => {
         const { asset_id, issue_type, description, priority } = req.body;
         
         const [result] = await db.query(
-            'INSERT INTO issues (asset_id, issue_type, description, priority, status) VALUES (?, ?, ?, ?, ?)',
-            [asset_id, issue_type, description, priority || 'medium', 'open']
+            'INSERT INTO issues (asset_id, issue_type, description, priority, status, reported_by) VALUES (?, ?, ?, ?, ?, ?)',
+            [asset_id, issue_type, description, priority || 'medium', 'open', req.user ? req.user.id : null]
         );
         res.status(201).json({ message: 'Issue created successfully', issue_id: result.insertId });
     } catch (err) {
@@ -49,7 +49,7 @@ exports.assignTechnician = async (req, res) => {
     try {
         const { tech_id } = req.body;
         const [result] = await db.query(
-            'UPDATE issues SET assigned_technician = ?, status = ? WHERE issue_id = ?',
+            'UPDATE issues SET assigned_technician = ?, status = ?, assigned_at = CURRENT_TIMESTAMP WHERE issue_id = ?',
             [tech_id, 'assigned', req.params.id]
         );
 
@@ -83,9 +83,10 @@ exports.updateStatus = async (req, res) => {
 
 exports.closeIssue = async (req, res) => {
     try {
+        const { resolution_notes } = req.body;
         const [result] = await db.query(
-            'UPDATE issues SET status = ?, resolved_at = CURRENT_TIMESTAMP WHERE issue_id = ?',
-            ['closed', req.params.id]
+            'UPDATE issues SET status = ?, resolved_at = CURRENT_TIMESTAMP, resolution_notes = ? WHERE issue_id = ?',
+            ['closed', resolution_notes || '', req.params.id]
         );
 
         if (result.affectedRows === 0) {

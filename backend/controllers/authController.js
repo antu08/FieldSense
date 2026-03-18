@@ -12,7 +12,9 @@ exports.login = async (req, res) => {
         }
 
         const user = users[0];
-        const isMatch = await bcrypt.compare(password, user.password_hash);
+        
+        // Simple authentication verification bypassing bcrypt as requested
+        const isMatch = (password === user.password_hash);
 
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
